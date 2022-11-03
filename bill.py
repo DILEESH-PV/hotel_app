@@ -97,13 +97,12 @@ while(True):
     elif(ch==8):
         date=input("Enter the date in 'yyyy-mm-dd' format")
         try:
-            sql="SELECT SUM(`amout`) `date` FROM `bill` WHERE `date`='"+date+"'"
+            sql="SELECT `name`, `phno`, `amout` FROM `bill` WHERE `date`='"+date+"'"
             mycursor.execute(sql)
-            result=mycursor.fetchall()
-            for i in result:
-             print(i)
-        except mysql.connector.Error as e:
-            sys.exit("invalid entry")
+            result = mycursor.fetchall()
+            print(tabulate(result,headers=["name","phone","amount"],tablefmt="psql" ))
+        except mysql.connector.Error  as e:
+            sys.exit("transaction summery error")  
     elif(ch==9):
         d1=input("Enter the starting date in 'yyyy-mm-dd' format")
         d2=input("Enter the ending in 'yyyy-mm-dd' format")
