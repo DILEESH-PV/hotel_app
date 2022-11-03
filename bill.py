@@ -40,11 +40,16 @@ while(True):
         qty=int(input("enter the quantity"))
         total+=60*qty
         item.append("Coffee x"+str(qty))
-        print("quantity= ",qty)
-        print("total=",total)
+        #print("quantity= ",qty)
+        #print("total=",total)
         
     elif(ch==5):
-        print("Added Alpham")
+        print("selected Add Alpham option")
+        qty=int(input("enter the quantity"))
+        total+=170*qty
+        item.append("Coffee x"+str(qty))
+        print("quantity= ",qty)
+        print("total=",total)
     elif(ch==6):
         print("Generating bill")
     elif(ch==7):
