@@ -26,10 +26,15 @@ while(True):
         qty=int(input("enter the quantity"))
         total+=15*qty
         item.append("Coffee x"+str(qty))
-        print("quantity= ",qty)
-        print("total=",total)
+        #print("quantity= ",qty)
+        #print("total=",total)
     elif(ch==3):
         print("Added Burger")
+        qty=int(input("enter the quantity"))
+        total+=40*qty
+        item.append("Coffee x"+str(qty))
+        print("quantity= ",qty)
+        print("total=",total)
     elif(ch==4):
         print("Added Sandwich")
     elif(ch==5):
