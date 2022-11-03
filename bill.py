@@ -1,6 +1,7 @@
 import mysql.connector
 import sys
 from datetime import datetime
+from tabulate import tabulate
 try:
     mydb=mysql.connector.connect(host='localhost',user='root',password='',database='hoteldb')
 except mysql.connector.Error as e:
@@ -86,27 +87,23 @@ while(True):
     elif(ch==7):
         date=input("Enter the date in 'yyyy-mm-dd' format")
         try:
-            sql="SELECT `name`, `phno`, `amout`, `date` FROM `bill` WHERE `date` ='"+date+"'"
+            sql="SELECT `name`, `phno`, `amout` FROM `bill` WHERE `date`='"+date+"'"
             mycursor.execute(sql)
-            result=mycursor.fetchall()
-            for i in result:
-                print("Name   :",i[0])
-                print("phone  :",i[1])
-                print("amount :",i[2])
-                print("date   :",i[3])
-                print("\n")
+            result = mycursor.fetchall()
+            print(tabulate(result,headers=["name","phone","amount"],tablefmt="psql")) 
         except mysql.connector.Error as e:
-            sys.exit("invalid entry")
+            sys.exit("view transaction error")   
+        
     elif(ch==8):
         date=input("Enter the date in 'yyyy-mm-dd' format")
         try:
             sql="SELECT SUM(`amout`) `date` FROM `bill` WHERE `date`='"+date+"'"
             mycursor.execute(sql)
             result=mycursor.fetchall()
+            for i in result:
+             print(i)
         except mysql.connector.Error as e:
             sys.exit("invalid entry")
-        for i in result:
-            print(i)
     elif(ch==9):
         d1=input("Enter the starting date in 'yyyy-mm-dd' format")
         d2=input("Enter the ending in 'yyyy-mm-dd' format")
