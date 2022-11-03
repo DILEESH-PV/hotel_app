@@ -1,6 +1,10 @@
 import mysql.connector
+import sys
 from datetime import datetime
-mydb=mysql.connector.connect(host='localhost',user='root',password='',database='hoteldb')
+try:
+    mydb=mysql.connector.connect(host='localhost',user='root',password='',database='hoteldb')
+except mysql.connector.Error as e:
+    sys.exit("db connection error")
 mycursor=mydb.cursor()
 total=0
 item=[]
@@ -69,35 +73,47 @@ while(True):
             print(i)
         print("\nTotal amount = ",total)
         print("\n Thank you visit again\n\n")
-        sql="INSERT INTO `bill`(`name`, `phno`, `amout`, `date`) VALUES (%s,%s,%s,now())"
-        data=(name,phn,total)
-        mycursor.execute(sql,data)
-        mydb.commit()
+        try:
+            sql="INSERT INTO `bill`(`name`, `phno`, `amout`, `date`) VALUES (%s,%s,%s,now())"
+            data=(name,phn,total)
+            mycursor.execute(sql,data)
+            mydb.commit()
+        except mysql.connector.Error as e:
+            sys.exit("invalid insertion")
         print("data inserted successfully on the database")
         total=0
         item=[]        
     elif(ch==7):
         date=input("Enter the date in 'yyyy-mm-dd' format")
-        sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
-        mycursor.execute(sql)
-        result=mycursor.fetchall()
+        try:
+            sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
+            mycursor.execute(sql)
+            result=mycursor.fetchall()
+        except mysql.connector.Error as e:
+            sys.exit("invalid entry")
         for i in result:
             print(i)
         print("\nselected view all ")
     elif(ch==8):
         date=input("Enter the date in 'yyyy-mm-dd' format")
-        sql="SELECT SUM(`amout`) `date` FROM `bill` WHERE `date`='"+date+"'"
-        mycursor.execute(sql)
-        result=mycursor.fetchall()
+        try:
+            sql="SELECT SUM(`amout`) `date` FROM `bill` WHERE `date`='"+date+"'"
+            mycursor.execute(sql)
+            result=mycursor.fetchall()
+        except mysql.connector.Error as e:
+            sys.exit("invalid entry")
         for i in result:
             print(i)
     elif(ch==9):
         d1=input("Enter the starting date in 'yyyy-mm-dd' format")
         d2=input("Enter the ending in 'yyyy-mm-dd' format")
-        sql="SELECT SUM(`amout`)  `date` FROM `bill` WHERE `date` BETWEEN '"+d1+"' AND '"+d2+"'"
+        try:
+            sql="SELECT SUM(`amout`)  `date` FROM `bill` WHERE `date` BETWEEN '"+d1+"' AND '"+d2+"'"
         #sql="SELECT SUM(`amout`) `date` FROM `bill` WHERE `date`='"+date+"'"
-        mycursor.execute(sql)
-        result=mycursor.fetchall()
+            mycursor.execute(sql)
+            result=mycursor.fetchall()
+        except mysql.connector.Error as e:
+            sys.exit("invalid entry")
         for i in result:
             print(i)
     elif(ch==10):
