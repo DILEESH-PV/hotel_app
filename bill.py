@@ -83,6 +83,13 @@ while(True):
         result=mycursor.fetchall()
         for i in result:
             print(i)
-        print("\nselected view all recipe")
+        print("\nselected view all ")
+    elif(ch==8):
+        date=input("Enter the date in 'yyyy-mm-dd' format")
+        sql="SELECT SUM(`amout`) `date` FROM `bill` WHERE `date`='"+date+"'"
+        mycursor.execute(sql)
+        result=mycursor.fetchall()
+        for i in result:
+            print(i)
     elif(ch==10):
         break
