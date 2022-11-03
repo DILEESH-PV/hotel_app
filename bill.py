@@ -91,5 +91,14 @@ while(True):
         result=mycursor.fetchall()
         for i in result:
             print(i)
+    elif(ch==9):
+        d1=input("Enter the starting date in 'yyyy-mm-dd' format")
+        d2=input("Enter the ending in 'yyyy-mm-dd' format")
+        sql="SELECT SUM(`amout`)  `date` FROM `bill` WHERE `date` BETWEEN '"+d1+"' AND '"+d2+"'"
+        #sql="SELECT SUM(`amout`) `date` FROM `bill` WHERE `date`='"+date+"'"
+        mycursor.execute(sql)
+        result=mycursor.fetchall()
+        for i in result:
+            print(i)
     elif(ch==10):
         break
