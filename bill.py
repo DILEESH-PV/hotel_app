@@ -86,14 +86,17 @@ while(True):
     elif(ch==7):
         date=input("Enter the date in 'yyyy-mm-dd' format")
         try:
-            sql="SELECT * FROM `bill` WHERE `date`='"+date+"'"
+            sql="SELECT `name`, `phno`, `amout`, `date` FROM `bill` WHERE `date` ='"+date+"'"
             mycursor.execute(sql)
             result=mycursor.fetchall()
+            for i in result:
+                print("Name   :",i[0])
+                print("phone  :",i[1])
+                print("amount :",i[2])
+                print("date   :",i[3])
+                print("\n")
         except mysql.connector.Error as e:
             sys.exit("invalid entry")
-        for i in result:
-            print(i)
-        print("\nselected view all ")
     elif(ch==8):
         date=input("Enter the date in 'yyyy-mm-dd' format")
         try:
